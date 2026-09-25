@@ -10,8 +10,8 @@ by Jeffery Myers is marked with CC0 1.0. To view a copy of this license, visit h
 #include "raylib.h"
 #include "raymath.h"
 #include "math.h" //used for cosf and sinf 
-#include "WanderState.h" //pulls in AI_state.h and Body.H as well as the wander state class
-#include "AI_State_Seek.h"
+#include "AI_HFSM_Field.h" //pulls in the AI state machine and states
+
 
 #include "resource_dir.h"	// utility header for SearchAndSetResourceDir
 
@@ -174,8 +174,8 @@ int main()
 	enemy.acceleration = 600.0f;
 
 	//Enemy state//
-	WanderState wander;
-	wander.OnEnter(enemy);
+	AI_HFSM_Field enemyFSM; //Enemy state machine
+	enemyFSM.InitializeStates(enemy);   //creates both states and starts in Wander, this calls OnEnter for us
 
 
 	//Main Game Loop//
@@ -205,7 +205,7 @@ int main()
 		}
 
 		//enemy wander//
-		wander.OnUpdate(enemy, player, dt);
+		enemyFSM.Update(enemy, player); //HFSM runs whichever state is current and switches when needed
 		
 
 		//physics//

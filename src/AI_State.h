@@ -6,7 +6,8 @@ enum class e_AI_StateID
 {
 	Idle,
 	Wander,
-	Seek
+	Seek,
+	Attack
 };
 
 //AI_State is the template every state follows//
